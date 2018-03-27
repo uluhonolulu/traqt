@@ -7,10 +7,10 @@ Kontra.getContract = async (name, provider) => {
         Contract.setProvider(provider);
         //console.log(Contract.toJSON());
         var networkId = await Contract.detectNetwork();
-        console.log("networkId: " + networkId || Contract.network_id);
+        // console.log("networkId: " + networkId || Contract.network_id);
         let isDeployed = await Contract.isDeployed();
-        console.log("deployed: " + isDeployed);
-        console.log("address: " + Contract.network.address);
+        // console.log("deployed: " + isDeployed);
+        // console.log("address: " + Contract.network.address);
         let address = Contract.network.address;
         let contractInstance = Contract.at(address);
         return contractInstance;

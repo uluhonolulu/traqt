@@ -24,8 +24,9 @@ describe('The contract object', () => {
         console.log(contract.address);
     });
 
-    // it('can execute a view method', async () => {
-    //   var contract = await Kontra.getContract('Migrations', provider);
-    //   contract.testView(1).should.equal(1);
-    // });
+    it('can execute a view method', async () => {
+      var contract = await Kontra.getContract('Migrations', provider);
+      var result = await contract.testView(1);
+      result.toNumber().should.equal(1);
+    });
 });
