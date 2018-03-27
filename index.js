@@ -10,9 +10,16 @@ Kontra.getContract = async (name, provider) => {
         // console.log("networkId: " + networkId || Contract.network_id);
         let isDeployed = await Contract.isDeployed();
         // console.log("deployed: " + isDeployed);
-        // console.log("address: " + Contract.network.address);
         let address = Contract.network.address;
-        let contractInstance = Contract.at(address);
+        // console.log("address: " + address);
+
+        //check for the code being deployed (will fail if we e.g. restarted Truffle w/o migrating)
+        let code = await Contract.web3.eth.getCode(address);
+        if (code == 0) {
+          throw(new Error("Please redeploy the contract"));
+        }
+
+        let contractInstance = await Contract.at(address);
         return contractInstance;
     };
 

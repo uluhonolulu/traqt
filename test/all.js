@@ -7,6 +7,11 @@ const Web3 = require('web3');
 let provider = new Web3.providers.HttpProvider("http://localhost:9545/");
 let web3 = new Web3(provider);
 
+// process.on('unhandledRejection', (reason, p) => {
+//   console.log('Unhandled Rejection at: Promise', p, 'reason:', reason);
+//   // application specific logging, throwing an error, or other logic here
+// });
+
 describe('The contract object', () => {
     before(() => {
         //setup a mock import
@@ -14,10 +19,10 @@ describe('The contract object', () => {
     });
 
     it('has all methods and properties', async () => {
-        var contract = await Kontra.getContract('Migrations', provider);
-        contract.should.not.be.undefined;
-        contract.setCompleted.should.not.be.undefined;
-        contract.testView.should.not.be.undefined;
+      var contract = await Kontra.getContract('Migrations', provider);
+      contract.should.not.be.undefined;
+      contract.setCompleted.should.not.be.undefined;
+      contract.testView.should.not.be.undefined;
     });
 
     it('has the contract\'s address', async () => {

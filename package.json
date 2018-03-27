@@ -4,7 +4,7 @@
   "description": "A helper for calling your Solidity contract's methods from command line",
   "main": "index.js",
   "scripts": {
-    "test": "nodemon --watch . --exec \"mocha\""
+    "test": "nodemon --watch . --exec \"mocha --trace-warnings\""
   },
   "keywords": [
     "solidity",
