@@ -36,6 +36,15 @@ describe('The contract object', () => {
       var contract = await Kontra.getContract('Migrations', provider);
       let owner = await contract.owner();
       owner.should.equal(web3.eth.accounts[0]);
-      // console.log(owner);
+      console.log(owner);
+    });
+
+    it('can execute transactions', async () => {
+      var contract = await Kontra.getContract('Migrations', provider);
+      var owner = web3.eth.accounts[0];
+      var newValue = 123;
+      await contract.setCompleted(newValue, {from: owner});
+      var modified = await contract.last_completed_migration();
+      modified.toNumber().should.equal(newValue);
     })
 });
