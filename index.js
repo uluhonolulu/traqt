@@ -1,12 +1,17 @@
 let Kontra = {};
 Kontra.importContract =  (name) => { return require(`./build/contracts/${name}.json`); };
-Kontra.getContract = (name, provider) => {
-        //var contract = {};
+Kontra.getContract = async (name, provider) => {
         let contractData = Kontra.importContract(name);
         let contractFactory = require('truffle-contract');
         let Contract = contractFactory(contractData);
         Contract.setProvider(provider);
-        let address = '0x';//TODO...;
+        //console.log(Contract.toJSON());
+        var networkId = await Contract.detectNetwork();
+        console.log("networkId: " + networkId || Contract.network_id);
+        let isDeployed = await Contract.isDeployed();
+        console.log("deployed: " + isDeployed);
+        console.log("address: " + Contract.network.address);
+        let address = Contract.network.address;
         let contractInstance = Contract.at(address);
         return contractInstance;
     };
