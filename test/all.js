@@ -5,6 +5,7 @@ const should = chai.should();
 const Kontra = require('../index');
 const Web3 = require('web3');
 let provider = new Web3.providers.HttpProvider("http://localhost:9545/");
+let web3 = new Web3(provider);
 
 describe('The contract object', () => {
     before(() => {
@@ -21,7 +22,8 @@ describe('The contract object', () => {
 
     it('has the contract\'s address', async () => {
         var contract = await Kontra.getContract('Migrations', provider);
-        console.log(contract.address);
+        contract.address.should.not.be.undefined;
+        // console.log(contract.address);
     });
 
     it('can execute a view method', async () => {
@@ -29,4 +31,11 @@ describe('The contract object', () => {
       var result = await contract.testView(1);
       result.toNumber().should.equal(1);
     });
+
+    it('can get public properties', async () => {
+      var contract = await Kontra.getContract('Migrations', provider);
+      let owner = await contract.owner();
+      owner.should.equal(web3.eth.accounts[0]);
+      // console.log(owner);
+    })
 });
