@@ -1,5 +1,5 @@
 {
-  "name": "kontra",
+  "name": "traqt",
   "version": "1.0.0",
   "description": "A helper for calling your Solidity contract's methods from command line",
   "main": "index.js",

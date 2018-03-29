@@ -1,7 +1,7 @@
-let Kontra = {};
-Kontra.importContract =  (name) => { return require(`./build/contracts/${name}.json`); };
-Kontra.getContract = async (name, provider) => {
-        let contractData = Kontra.importContract(name);
+let Traqt = {};
+Traqt.importContract =  (name) => { return require(`./build/contracts/${name}.json`); };
+Traqt.getContract = async (name, provider) => {
+        let contractData = Traqt.importContract(name);
         let contractFactory = require('truffle-contract');
         let Contract = contractFactory(contractData);
         Contract.setProvider(provider);
@@ -39,4 +39,4 @@ Kontra.getContract = async (name, provider) => {
         return contractInstance;
     };
 
-module.exports = Kontra;
+module.exports = Traqt;
