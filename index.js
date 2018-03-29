@@ -6,6 +6,7 @@ Kontra.getContract = async (name, provider) => {
         let Contract = contractFactory(contractData);
         Contract.setProvider(provider);
         //console.log(Contract.toJSON());
+        // networkId;
         try {
           var networkId = await Contract.detectNetwork();
         } catch (e) {
@@ -16,8 +17,14 @@ Kontra.getContract = async (name, provider) => {
           }
 
         }
-        // console.log("networkId: " + networkId || Contract.network_id);
+        networkId = networkId || Contract.network_id;
+        // console.log("networkId: " + networkId);
+        // console.log(Contract.toJSON());
         let isDeployed = await Contract.isDeployed();
+        if (!isDeployed) {
+          let message = Contract.contractName + " has not been deployed to the network with ID = " + networkId;
+          throw new Error(message);
+        }
         // console.log("deployed: " + isDeployed);
         let address = Contract.network.address;
         // console.log("address: " + address);
