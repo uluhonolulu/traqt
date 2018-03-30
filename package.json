@@ -8,8 +8,9 @@
   },
   "keywords": [
     "solidity",
-    "smart",
-    "contracts"
+    "ethereum",
+    "truffle",
+    "smart contracts"
   ],
   "author": "Artem Smirnov",
   "license": "ISC",
