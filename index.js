@@ -1,5 +1,5 @@
 let Traqt = {};
-Traqt.importContract =  (name) => { return require(`./build/contracts/${name}.json`); };
+Traqt.importContract =  (name) => { return require(`../../build/contracts/${name}.json`); };
 Traqt.getContract = async (name, provider) => {
         let contractData = Traqt.importContract(name);
         let contractFactory = require('truffle-contract');
@@ -30,12 +30,16 @@ Traqt.getContract = async (name, provider) => {
         // console.log("address: " + address);
 
         //check for the code being deployed (will fail if we e.g. restarted Truffle w/o migrating)
-        let code = await Contract.web3.eth.getCode(address);
+        let code = await Contract.web3.eth.getCode(address, () => {
+          // console.log(arguments);
+          //TODO: promisify
+        });
         if (code == 0) {
           throw(new Error("Please redeploy the contract"));
         }
 
         let contractInstance = await Contract.at(address);
+        contractInstance.Contract = Contract;
         return contractInstance;
     };
 
