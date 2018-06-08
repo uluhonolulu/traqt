@@ -17,8 +17,7 @@ let provider = new Web3.providers.HttpProvider("http://localhost:9545/");
 let web3 = new Web3(provider);
 
 (async ()=> {
-  const { ico, token } = require("./common.js");
-  let caller = isToken? token : ico;
+
   try {
     let contract = await Traqt.getContract('Migrations', provider); //assuming we call methods of the Migrations contract
     console.log(contract.address);  //the address of the published contract
