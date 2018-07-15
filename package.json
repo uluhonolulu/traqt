@@ -1,6 +1,6 @@
 {
   "name": "traqt",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A helper for calling your Solidity contract's methods from command line",
   "main": "index.js",
   "scripts": {

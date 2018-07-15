@@ -40,6 +40,18 @@ Traqt.getContract = async (name, provider) => {
 
         let contractInstance = await Contract.at(address);
         contractInstance.Contract = Contract;
+
+        Contract.getCoinbase = async () => {
+          return new Promise((resolve, reject) => {
+            Contract.web3.eth.getCoinbase((err, result) => {
+              if (err) {
+                reject(err);
+              } else {
+                resolve(result);
+              }
+            })
+          });
+        }          
         return contractInstance;
     };
 
