@@ -1,3 +1,6 @@
+const Web3 = require('web3');
+const Promise = require("bluebird");
+
 let Traqt = {};
 Traqt.importContract =  (name) => { return require(`../../build/contracts/${name}.json`); };
 Traqt.getContract = async (name, provider) => {
@@ -79,6 +82,13 @@ Traqt.executeFromCommandline = async(name, provider) => {
     return !!val.c;
   }
 
+}
+
+Traqt.getWeb3 = provider => {
+  let web3 = new Web3(provider);
+  let eth = web3.eth;
+  Promise.promisifyAll(eth);
+  return web3;
 }
 
 module.exports = Traqt;
