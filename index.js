@@ -32,11 +32,11 @@ Traqt.getContract = async (name, provider) => {
         let address = Contract.network.address;
         // console.log("address: " + address);
 
+        // promisify eth
+        Promise.promisifyAll(Contract.web3.eth);
+
         //check for the code being deployed (will fail if we e.g. restarted Truffle w/o migrating)
-        let code = await Contract.web3.eth.getCode(address, () => {
-          // console.log(arguments);
-          //TODO: promisify
-        });
+        let code = await Contract.web3.eth.getCodeAsync(address);
         if (code == 0) {
           throw(new Error("Please redeploy the contract"));
         }
@@ -45,15 +45,7 @@ Traqt.getContract = async (name, provider) => {
         contractInstance.Contract = Contract;
 
         Contract.getCoinbase = async () => {
-          return new Promise((resolve, reject) => {
-            Contract.web3.eth.getCoinbase((err, result) => {
-              if (err) {
-                reject(err);
-              } else {
-                resolve(result);
-              }
-            })
-          });
+          return await Contract.web3.eth.getCoinbaseAsync();
         }          
         return contractInstance;
     };
