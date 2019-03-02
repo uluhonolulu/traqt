@@ -76,17 +76,4 @@ Traqt.executeFromCommandline = async(name, provider) => {
 
 }
 
-Traqt.getWeb3 = provider => {
-  //we cannot just use new Web3(provider), since we'll be using the Web3 module from node_modules\traqt\node_modules\web3,
-  //and when we all token's methods, we'll be using Web 3 from node_modules\truffle-contract\node_modules\web3
-  //so we'll use two instances of JsonRPC, and have two sequences of ID's, which can break our code if we use IPC provider
-  //the solution is to have Truffle create Web3 for us, using an empty contract
-  let Contract = require("truffle-contract/contract.js").clone({});
-  Contract.setProvider(provider);
-  let web3 = Contract.web3;
-  let eth = web3.eth;
-  Promise.promisifyAll(eth);  //so that we get methods like getBlockAsync etc
-  return web3;
-}
-
 module.exports = Traqt;
