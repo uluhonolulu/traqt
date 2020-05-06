@@ -4,7 +4,7 @@ const should = chai.should();
 
 const Traqt = require('../index');
 const Web3 = require('web3');
-let provider = new Web3.providers.HttpProvider("http://localhost:9545/");
+let provider = new Web3.providers.HttpProvider("http://localhost:8545/");
 let web3 = new Web3(provider);
 
 // process.on('unhandledRejection', (reason, p) => {
@@ -39,14 +39,15 @@ describe('The contract object', () => {
 
     it('can get public properties', async () => {
       var contract = await Traqt.getContract('Migrations', provider);
-      let owner = await contract.owner();
-      owner.should.equal(web3.eth.accounts[0]);
+	  let owner = await contract.owner();
+	  let coinbase = await web3.eth.getCoinbase();
+      owner.toLowerCase().should.equal(coinbase);
       // console.log(owner);
     });
 
     it('can execute transactions', async () => {
       var contract = await Traqt.getContract('Migrations', provider);
-      var owner = web3.eth.accounts[0];
+      let owner = await web3.eth.getCoinbase();
       var newValue = 123;
       await contract.setCompleted(newValue, {from: owner});
       var modified = await contract.last_completed_migration();

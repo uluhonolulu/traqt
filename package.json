@@ -1,10 +1,10 @@
 {
   "name": "traqt",
-  "version": "2.0.1",
+  "version": "2.1.0",
   "description": "A helper for calling your Solidity contract's methods from command line",
   "main": "index.js",
   "scripts": {
-    "test": "nodemon --watch . --exec \"mocha --trace-warnings\""
+    "test": "nodemon --watch . --exec \"mocha --trace-warnings --timeout 10000\""
   },
   "keywords": [
     "solidity",
@@ -15,13 +15,12 @@
   "author": "Artem Smirnov",
   "license": "ISC",
   "dependencies": {
-    "bluebird": "^3.5.3",
-    "truffle": "^5.0.6",
-    "truffle-contract": "^4.0.7",
-    "truffle-hdwallet-provider": "1.0.5",
-    "web3": "1.0.0-beta.37"
+    "@truffle/contract": "^4.2.3",
+    "@truffle/debug-utils": "^4.1.1",
+    "web3": "^1.2.7"
   },
   "devDependencies": {
+    "mocha": "^7.1.2",
     "chai": "^4.2.0"
   }
 }
